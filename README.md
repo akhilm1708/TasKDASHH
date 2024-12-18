@@ -23,10 +23,8 @@ This is a simple To-Do list application built with Python using Tkinter for the 
 
 To run the project, you will need to install the required dependencies. You can do so by running:
 
+
 ```bash
-pip install -r requirements.txt
-```
-```
 python main.py
 ```
 
