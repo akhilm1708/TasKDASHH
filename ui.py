@@ -71,13 +71,30 @@ def increment_priority():
     except ValueError:
         messagebox.showerror("Error", "Please enter a valid number for priority increase.")
 
+def clear_tasks():
+    task_delete = clear_entry.get()
+    
+    if not task_delete:
+        messagebox.showerror("Error", "Please enter a task.")
+        return
+    
+    try:
+        url = API + user + "/reset?password=" + task_delete
+        response = requests.post(url)
+        if response.status_code == 200:
+            messagebox.showinfo("Success", "Tasks cleared successfully!")
+        else:
+            messagebox.showerror("Error", f"Failed to clear tasks: {response.text}")
+    
+    except requests.exceptions.RequestException as e:
+        messagebox.showerror("Error", f"An error occurred: {e}")
 
 
 def create_ui():
-    global post_entry, task_id_entry, priority_entry
+    global post_entry, task_id_entry, clear_entry, priority_entry
     
     root = tk.Tk()
-    root.title("To-Do List App")
+    root.title("TasKDASH")
     root.geometry("400x300")
     root.resizable(True, True)
     root.configure(bg="lightblue")
@@ -87,7 +104,6 @@ def create_ui():
     frame = tk.Frame(root)
     frame.pack(pady=5)
     
-    #POST widgets
     post_frame = tk.Frame(root, relief="solid", bd=2, padx=10, pady=10)
     post_frame.pack(padx=10, pady=10, fill="x")
 
@@ -98,14 +114,17 @@ def create_ui():
     post_button = tk.Button(post_frame, text="Post Task", width=20, command=post_task)
     post_button.pack(pady=10)
 
-    
+    clear_frame = tk.Frame(root, relief="solid", bd=2, padx=10, pady=10)
+    clear_frame.pack(padx=10, pady=15, fill="x")
 
-    # clear_button = tk.Button(root, text="Clear Tasks", width=20, command=clear_tasks)
-    # clear_button.pack(pady=5)
+    clear_button = tk.Button(clear_frame, text="Clear Tasks (enter password)", width=25, command=clear_tasks)
+    clear_button.pack(pady=5, padx=10, side=tk.LEFT)
 
-    #INC widgets
+    clear_entry = tk.Entry(clear_frame, width=40)
+    clear_entry.pack(side = tk.LEFT)
+
     increment_frame = tk.Frame(root, relief="solid", bd=2, padx=10, pady=10)
-    increment_frame.pack(padx=10, pady=10, fill="x")
+    increment_frame.pack(padx=10, pady=20, fill="x")
 
     tk.Label(increment_frame, text="Task ID to Increment Priority:").pack(pady=5)
     task_id_entry = tk.Entry(increment_frame, width=40)
@@ -118,14 +137,14 @@ def create_ui():
     increment_button = tk.Button(increment_frame, text="Increment Priority", width=20, command=increment_priority)
     increment_button.pack(pady=10)
 
-    #GET widgets
     get_button = tk.Button(root, text="Get Tasks", width=20, command=get_tasks)
     get_button.pack(pady=5)
 
-    exit_button = tk.Button(root, text="Exit", width=20, fg = "red", command=root.quit)
+    exit_button = tk.Button(root, text="Exit", width=20, fg="red", command=root.quit)
     exit_button.pack(pady=30)
 
     root.mainloop()
+
 
 #testing w/out main.py
 # create_ui()
