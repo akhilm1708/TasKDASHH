@@ -35,6 +35,7 @@ def get_tasks():
             if "strings" in tasks and "values" in tasks:
                 # searched zip up lol, it can iterate through both parsed sections at once
                 tasks_list = "\n".join([f"Task: {task}, Priority: {priority}" for task, priority in zip(tasks["strings"], tasks["values"])])
+                # print(tasks_list)
 
                 messagebox.showinfo("Tasks", tasks_list)
             else:
@@ -50,8 +51,8 @@ def get_tasks():
 
 def increment_priority():
     try:
-        task_id = task_id_entry.get()  # Get the task ID
-        priority_increase = int(priority_entry.get())  # Get how much to increase the priority
+        task_id = task_id_entry.get()  
+        priority_increase = int(priority_entry.get())  #  how much to increase the priority
         
         if not task_id or priority_increase <= 0:
             messagebox.showerror("Error", "Please provide a valid task ID and priority increase.")
@@ -97,6 +98,7 @@ def create_ui():
     root.title("TasKDASH")
     root.geometry("400x300")
     root.resizable(True, True)
+    # root.resizable(False, False)
     root.configure(bg="lightblue")
 
     tk.Label(root, text="To-Do List App", font=("Arial", 16, "bold")).pack(pady=10)
