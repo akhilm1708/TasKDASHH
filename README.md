@@ -14,7 +14,7 @@ This is a simple To-Do list application built with Python using Tkinter for the 
   - Contains the Tkinter user interface code, including the creation of frames, buttons, and handling user input like posting tasks, getting tasks, and incrementing priorities.
 
 - **funcs.py**: 
-  - Functions I used in previous API projects that I referenced for my code
+  - Functions I used in previous API projects that I referenced for my code.
 
 - **README.md**: 
   - Documentation file that explains the project, its purpose, how to run it, and any dependencies.
